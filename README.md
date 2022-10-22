@@ -1,7 +1,6 @@
-# Client
-Cloud Client API
+#Intrasheets
 
-https://jspreadsheet.com/cloud/docs
- 
-https://jspreadsheet.com/cloud
+https://intrasheets.com
+
+https://jspreadsheet.com
 

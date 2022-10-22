@@ -1,4 +1,5 @@
 src
 .eslintrc.json
 tsconfig.json
-client-api*
+packege-lock.json
+node-modules
