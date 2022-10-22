@@ -1,7 +1,6 @@
 {
-  "name": "client-api",
+  "name": "@intrasheets/client",
   "version": "1.0.0",
-  "private": true,
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {

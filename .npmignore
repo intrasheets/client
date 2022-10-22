@@ -3,3 +3,4 @@ src
 tsconfig.json
 packege-lock.json
 node-modules
+.idea
