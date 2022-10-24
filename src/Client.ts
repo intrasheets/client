@@ -10,7 +10,7 @@ import { appendObject, axiosRequisitionHandler } from "./utils";
 
 const defaultUrl = "https://jspreadsheet.com/api";
 
-const Client: IClientConstructor = class Client implements IClient {
+export const Client: IClientConstructor = class Client implements IClient {
   token;
   baseUrl;
 
@@ -132,5 +132,3 @@ const Client: IClientConstructor = class Client implements IClient {
     return result.data.sheet_id;
   }
 };
-
-export default Client;
