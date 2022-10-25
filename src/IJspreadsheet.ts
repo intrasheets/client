@@ -111,13 +111,11 @@ export interface IJspreadsheet {
    * @param config - New worksheet config.
    */
   setConfig(
-    config:
-      | Partial<Worksheet>
-      | {
-          definedNames?: any;
-          toolbar?: any;
-          tabs?: any;
-        }
+    config: Partial<Worksheet> & {
+      definedNames?: any;
+      toolbar?: any;
+      tabs?: any;
+    }
   ): Promise<void>;
 
   /**
@@ -186,7 +184,7 @@ export interface IJspreadsheet {
   /**
    * Get all footer values.
    */
-  getFooters(): Promise<(string | null)[][] | []>;
+  getFooters(): Promise<(string | null)[][]>;
 
   /**
    * Set the value of a pre-existing footer coordinate.
@@ -576,7 +574,7 @@ export interface IJspreadsheet {
   /**
    * Get freezeRows property value.
    */
-  getFreezeRows(): Promise<number>;
+  getFreezeRows(): Promise<number | null>;
 
   /**
    * Set the freezeRows property value.
@@ -587,7 +585,7 @@ export interface IJspreadsheet {
   /**
    * Get freezeColumns property value.
    */
-  getFreezeColumns(): Promise<number>;
+  getFreezeColumns(): Promise<number | null>;
 
   /**
    * * Set the freezeColumns property value.

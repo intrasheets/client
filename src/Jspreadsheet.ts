@@ -74,13 +74,11 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
   }
 
   async setConfig(
-    config:
-      | Partial<Worksheet>
-      | {
-          definedNames?: any;
-          toolbar?: any;
-          tabs?: any;
-        }
+    config: Partial<Worksheet> & {
+      definedNames?: any;
+      toolbar?: any;
+      tabs?: any;
+    }
   ) {
     const formData = new FormData();
 
