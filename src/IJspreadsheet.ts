@@ -10,6 +10,12 @@ export enum privacyEnum {
   Private,
 }
 
+export enum invitationLevelEnum {
+  Viewer,
+  Editor,
+  Designer,
+}
+
 type ActionWithText = "warning" | "reject";
 type ActionWithoutAllowBlank = "reject";
 type ActionWithFormat = "format";
@@ -670,14 +676,16 @@ export interface IJspreadsheet {
    * @param users - New guests.
    */
   setUsers(
-    users: { email: string; level: number }[]
+    users: { email: string; level: invitationLevelEnum }[]
   ): Promise<{ email: string; token: string }[]>;
 
   /**
    * Update the level of guests that have already been added.
    * @param users - Emails belonging to guests that must be updated and their respective new levels.
    */
-  updateUsers(users: { email: string; level: number }[]): Promise<void>;
+  updateUsers(
+    users: { email: string; level: invitationLevelEnum }[]
+  ): Promise<void>;
 
   /**
    * Remove one or more guests.

@@ -7,12 +7,12 @@ import {
   ValidationTypeWithCriteria,
   IJspreadsheet,
   IJspreadsheetConstructor,
-  IMapForValidationTypes,
   orderByDirection,
   Validation,
   ValidationAction,
   ValidationTypeWithoutCriteria,
   privacyEnum,
+  invitationLevelEnum,
 } from "./IJspreadsheet";
 import { appendObject, axiosRequisitionHandler } from "./utils";
 
@@ -831,12 +831,7 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
     );
   }
 
-  async getValidations(): Promise<
-    Validation<
-      keyof IMapForValidationTypes | ValidationTypeWithoutCriteria,
-      ValidationAction
-    >[]
-  > {
+  async getValidations() {
     return axiosRequisitionHandler(() =>
       this.axiosInstance.get("/validations")
     );
@@ -850,7 +845,7 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
       index: number;
       value: Validation<Type, Action>;
     }[]
-  ): Promise<void> {
+  ) {
     const formData = new FormData();
 
     validations.forEach(
@@ -988,7 +983,7 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
     return axiosRequisitionHandler(() => this.axiosInstance.get("/users"));
   }
 
-  async setUsers(users: { email: string; level: number }[]) {
+  async setUsers(users: { email: string; level: invitationLevelEnum }[]) {
     const formData = new FormData();
 
     appendObject(formData, users, "data");
@@ -1002,7 +997,7 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
     return result.data.users;
   }
 
-  async updateUsers(users: { email: string; level: number }[]) {
+  async updateUsers(users: { email: string; level: invitationLevelEnum }[]) {
     const formData = new FormData();
 
     const reqBody = users.map((user) => [user.email, user.level]);
