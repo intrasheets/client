@@ -518,7 +518,7 @@ export interface IJspreadsheet {
    * @param options - Options for this new worksheet.
    */
   createWorksheet(
-    options?: Partial<Worksheet>
+    options: Partial<Worksheet> & { worksheetName: string }
   ): Promise<{ worksheet: number; worksheetId: string }>;
 
   /**

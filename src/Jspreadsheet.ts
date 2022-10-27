@@ -755,21 +755,21 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
     );
   }
 
-  async createWorksheet(options?: Partial<Worksheet>) {
+  async createWorksheet(
+    options: Partial<Worksheet> & { worksheetName: string }
+  ) {
     const formData = new FormData();
 
-    if (options) {
-      Object.entries(options).forEach(([key, value]) => {
-        const valueType = typeof value;
-        if (valueType === "object") {
-          appendObject(formData, value, key);
-        } else if (valueType === "number" || valueType === "string") {
-          formData.append(key, value);
-        } else if (valueType === "boolean") {
-          formData.append(key, value.toString());
-        }
-      });
-    }
+    Object.entries(options).forEach(([key, value]) => {
+      const valueType = typeof value;
+      if (valueType === "object") {
+        appendObject(formData, value, key);
+      } else if (valueType === "number" || valueType === "string") {
+        formData.append(key, value);
+      } else if (valueType === "boolean") {
+        formData.append(key, value.toString());
+      }
+    });
 
     const result = await axiosRequisitionHandler(() =>
       this.axiosInstance.post("/worksheets", formData.getBuffer(), {
