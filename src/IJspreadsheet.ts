@@ -16,56 +16,43 @@ export enum invitationLevelEnum {
   Designer,
 }
 
-type ActionWithText = "warning" | "reject";
-type ActionWithoutAllowBlank = "reject";
-type ActionWithFormat = "format";
+type ValidationAction = "warning" | "reject" | "format";
 
-export type ValidationAction =
-  | ActionWithText
-  | ActionWithoutAllowBlank
-  | ActionWithFormat;
+export type ValidationType =
+  | "list"
+  | "exist"
+  | "not exist"
+  | "number"
+  | "textLength"
+  | "text"
+  | "date";
 
-export type ValidationTypeWithoutCriteria = "list" | "exist" | "not exist";
+export type ValidationCriteria =
+  | "<"
+  | "<="
+  | ">"
+  | ">="
+  | "="
+  | "!="
+  | "between"
+  | "not between"
+  | "contains"
+  | "not contains"
+  | "begins with"
+  | "ends with"
+  | "valid email"
+  | "valid url"
+  | "valid date";
 
-export interface IMapForValidationTypes {
-  number: "between" | "not between" | "<" | "<=" | ">" | ">=" | "=" | "!=";
-  textLength: "between" | "not between" | "<" | "<=" | ">" | ">=" | "=" | "!=";
-  text:
-    | "contains"
-    | "not contains"
-    | "begins with"
-    | "ends with"
-    | "="
-    | "valid email"
-    | "valid url";
-  date:
-    | "valid date"
-    | "between"
-    | "not between"
-    | "<"
-    | "<="
-    | ">"
-    | ">="
-    | "="
-    | "!=";
-}
-
-export type ValidationTypeWithCriteria = keyof IMapForValidationTypes;
-
-export type Validation<
-  Type extends ValidationTypeWithCriteria | ValidationTypeWithoutCriteria,
-  Action extends ValidationAction
-> = {
-  action: Action;
-  type: Type;
-  criteria: Type extends ValidationTypeWithCriteria
-    ? IMapForValidationTypes[Type]
-    : undefined;
+export type Validation = {
+  action: ValidationAction;
+  type: ValidationType;
+  criteria?: ValidationCriteria;
   range: string;
-  text?: Action extends ActionWithText ? string : undefined;
-  allowBlank: Action extends ActionWithoutAllowBlank ? undefined : boolean;
-  value: Array<any>;
-  format: Action extends ActionWithFormat ? object : undefined;
+  text?: string;
+  allowBlank?: boolean;
+  value?: any[];
+  format?: object;
 };
 
 export interface IJspreadsheetConstructor {
@@ -557,23 +544,15 @@ export interface IJspreadsheet {
   /**
    * Get all validations.
    */
-  getValidations(): Promise<
-    Validation<
-      ValidationTypeWithCriteria | ValidationTypeWithoutCriteria,
-      ValidationAction
-    >[]
-  >;
+  getValidations(): Promise<Validation[]>;
 
   /**
    * Create or update validations.
    */
-  setValidations<
-    Type extends ValidationTypeWithCriteria | ValidationTypeWithoutCriteria,
-    Action extends ValidationAction
-  >(
+  setValidations(
     validations: {
       index: number;
-      value: Validation<Type, Action>;
+      value: Validation;
     }[]
   ): Promise<void>;
 

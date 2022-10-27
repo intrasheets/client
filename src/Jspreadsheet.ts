@@ -4,13 +4,10 @@ import FormData from "form-data";
 import { Column, Nested, Worksheet } from "./jspreadsheetTypes";
 
 import {
-  ValidationTypeWithCriteria,
   IJspreadsheet,
   IJspreadsheetConstructor,
   orderByDirection,
   Validation,
-  ValidationAction,
-  ValidationTypeWithoutCriteria,
   privacyEnum,
   invitationLevelEnum,
 } from "./IJspreadsheet";
@@ -837,13 +834,10 @@ const Jspreadsheet: IJspreadsheetConstructor = class Jspreadsheet
     );
   }
 
-  async setValidations<
-    Type extends ValidationTypeWithCriteria | ValidationTypeWithoutCriteria,
-    Action extends ValidationAction
-  >(
+  async setValidations(
     validations: {
       index: number;
-      value: Validation<Type, Action>;
+      value: Validation;
     }[]
   ) {
     const formData = new FormData();
